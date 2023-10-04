@@ -1,11 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import General from './components/General'
 import Education from './components/Education'
 import Practical from './components/Practical'
 
 function App() {
-  const [educationArr, setEducationArr] = useState([])
-  const [practicalArr, setPracticalArr] = useState([])
+  const [educationArr, setEducationArr] = useState(()=>{
+    const localEducation = localStorage.getItem("education")
+    if (localEducation == null) return []
+
+    return JSON.parse(localEducation)
+  })
+  const [practicalArr, setPracticalArr] = useState(()=>{
+    const localPractical = localStorage.getItem("practical")
+    if (localPractical == null) return []
+
+    return JSON.parse(localPractical)
+  })
+
+  useEffect(() => {
+    localStorage.setItem("education", JSON.stringify(educationArr))
+    localStorage.setItem("practical", JSON.stringify(practicalArr))
+  }, [educationArr, practicalArr])
 
   function addNewEducation() {
     setEducationArr([...educationArr, {id: crypto.randomUUID()}])

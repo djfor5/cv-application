@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function General() {
-  const [general, setGeneral] = useState({name: '', email: '', phone: ''})
+  const [isDisabled, setIsDisabled] = useState(true)
+
+  const [general, setGeneral] = useState(()=>{
+    const localGeneral = localStorage.getItem("general")
+    if (localGeneral == null) return {name: '', email: '', phone: ''}
+    
+    return JSON.parse(localGeneral)
+  })
+
+  useEffect(() => {
+    localStorage.setItem("general", JSON.stringify(general))
+  }, [general])
 
   const [nameState, setNameState] = useState(general.name)
   const [emailState, setEmailState] = useState(general.email)
   const [phoneState, setPhoneState] = useState(general.phone)
 
-  const [isDisabled, setIsDisabled] = useState(false)
 
   function handleCancel() {
     setNameState(general.name)

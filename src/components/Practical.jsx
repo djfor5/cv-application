@@ -7,7 +7,7 @@ function Practical({id, company='', position='', responsibilities='', dateFrom='
   const [dateFromState, setDateFromState] = useState(dateFrom)
   const [dateToState, setDateToState] = useState(dateTo)
   
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
 
   function handleCancel() {
     setCompanyState(company)

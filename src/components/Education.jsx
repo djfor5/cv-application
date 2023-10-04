@@ -6,7 +6,7 @@ function Education({id, school='', study='', dateFrom='', dateTo='', updateEduca
   const [dateFromState, setDateFromState] = useState(dateFrom)
   const [dateToState, setDateToState] = useState(dateTo)
   
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
 
   function handleCancel() {
     setSchoolState(school)
