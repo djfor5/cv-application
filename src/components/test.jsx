@@ -107,10 +107,6 @@ function Test() {
   function updateEducationItem(item) {
     let newArr = [...educationArr]
     const newItem = {...item}
-    if (!newItem.id) {
-      newItem.id = crypto.randomUUID()
-      // console.log('item does not have an ID, ID property now added to item object')
-    }
     const index = newArr.findIndex(el => el.id === newItem.id)
     if (index >= 0) {
       newArr[index] = {...newItem}
@@ -128,10 +124,6 @@ function Test() {
   function updatePracticalItem(item) {
     let newArr = [...practicalArr]
     const newItem = {...item}
-    if (!newItem.id) {
-      newItem.id = crypto.randomUUID()
-      // console.log('item does not have an ID, ID property now added to item object')
-    }
     const index = newArr.findIndex(el => el.id === newItem.id)
     if (index >= 0) {
       newArr[index] = {...newItem}

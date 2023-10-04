@@ -1,39 +1,38 @@
 import { useState } from 'react';
-import Btn from './Btn';
 
-function Practical() {
-  const [practical, setPractical] = useState({company: '', position: '', responsibilities: '', dateFrom: '', dateTo: ''});
-  const [status, setStatus] = useState('editing');
+function Practical({id, company, position, responsibilities, dateFrom, dateTo, updatePracticalItem, deletePracticalItem}) {
+  const [companyState, setCompanyState] = useState(company)
+  const [positionState, setPositionState] = useState(position)
+  const [responsibilitiesState, setResponsibilitiesState] = useState(responsibilities)
+  const [dateFromState, setDateFromState] = useState(dateFrom)
+  const [dateToState, setDateToState] = useState(dateTo)
+  
+  const [isDisabled, setIsDisabled] = useState(false)
 
-  const updatePractical = (e, input) => {
-    setPractical({...practical, [input]: e.target.value});
+  function handleSubmit(e, item) {
+    e.preventDefault();
+    updatePracticalItem(item)
+    setIsDisabled(true)
   }
 
-  if (status === 'editing') {
-    return (
-      <>
-        <label>Company <input type='text' value={practical.company} onChange={(e)=>updatePractical(e, 'company')} /></label>
-        <label>Position <input type='text' value={practical.position} onChange={(e)=>updatePractical(e, 'position')} /></label>
-        <label>Responsibilities <input type='text' value={practical.responsibilities} onChange={(e)=>updatePractical(e, 'responsibilities')} /></label>
-        <label>Date From <input type='date' value={practical.dateFrom} onChange={(e)=>updatePractical(e, 'dateFrom')} /></label>
-        <label>Date To <input type='date' value={practical.dateTo} onChange={(e)=>updatePractical(e, 'dateTo')} /></label>
-        <Btn btnType='Edit' handleClick={()=>setStatus('editing')} />
-        <Btn btnType='Submit' handleClick={()=>setStatus('submitted')} />
-      </>
-    )
-  } else {
-    return (
-      <>
-        <label>Company: </label><p>{practical.company}</p>
-        <label>Position: </label><p>{practical.position}</p>
-        <label>Responsibilities: </label><p>{practical.responsibilities}</p>
-        <label>Date From: </label><p>{practical.dateFrom}</p>
-        <label>Date To: </label><p>{practical.dateTo}</p>
-        <Btn btnType='Edit' handleClick={()=>setStatus('editing')} />
-        <Btn btnType='Submit' handleClick={()=>setStatus('submitted')} />
-      </>
-    )
-  }
+  return (
+    <>
+      <div className='practical-item'>
+        <div className='data'>
+          <label>Company <input type='text' disabled={isDisabled} value={companyState} onChange={(e)=>setCompanyState(e.target.value)} /></label>
+          <label>Position <input type='text' disabled={isDisabled} value={positionState} onChange={(e)=>setPositionState(e.target.value)} /></label>
+          <label>Responsibilities <input type='text' disabled={isDisabled} value={responsibilitiesState} onChange={(e)=>setResponsibilitiesState(e.target.value)} /></label>
+          <label>Date From <input type='date' disabled={isDisabled} value={dateFromState} onChange={(e)=>setDateFromState(e.target.value)} /></label>
+          <label>Date To <input type='date' disabled={isDisabled} value={dateToState} onChange={(e)=>setDateToState(e.target.value)} /></label>
+        </div>
+        <div className='buttons'>
+          <button onClick={()=>deletePracticalItem(id)}>Delete</button>
+          <button onClick={()=>setIsDisabled(false)}>Edit</button>
+          <button onClick={(e)=>handleSubmit(e, {id, company: companyState, position: positionState, responsibilities: responsibilitiesState, dateFrom: dateFromState, dateTo: dateToState})}>Submit</button>
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default Practical;
