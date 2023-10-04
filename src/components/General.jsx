@@ -1,11 +1,26 @@
 import { useState } from 'react';
 
 function General() {
-  const [nameState, setNameState] = useState('')
-  const [emailState, setEmailState] = useState('')
-  const [phoneState, setPhoneState] = useState('')
+  const [general, setGeneral] = useState({name: '', email: '', phone: ''})
+
+  const [nameState, setNameState] = useState(general.name)
+  const [emailState, setEmailState] = useState(general.email)
+  const [phoneState, setPhoneState] = useState(general.phone)
 
   const [isDisabled, setIsDisabled] = useState(false)
+
+  function handleCancel() {
+    setNameState(general.name)
+    setEmailState(general.email)
+    setPhoneState(general.phone)
+    setIsDisabled(true)
+  }
+
+  function handleSubmit(e, item) {
+    e.preventDefault();
+    setGeneral(item)
+    setIsDisabled(true)
+  }
 
   return (
     <>
@@ -16,7 +31,8 @@ function General() {
       </div>
       <div className='buttons'>
         <button onClick={()=>setIsDisabled(false)}>Edit</button>
-        <button onClick={()=>setIsDisabled(true)}>Submit</button>
+        <button onClick={()=>handleCancel()}>Cancel</button>
+        <button onClick={(e)=>handleSubmit(e, {name: nameState, email: emailState, phone: phoneState})}>Submit</button>
       </div>
     </>
   )

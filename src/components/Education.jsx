@@ -1,12 +1,20 @@
 import { useState } from 'react';
 
-function Education({id, school, study, dateFrom, dateTo, updateEducationItem, deleteEducationItem}) {
+function Education({id, school='', study='', dateFrom='', dateTo='', updateEducationItem, deleteEducationItem}) {
   const [schoolState, setSchoolState] = useState(school)
   const [studyState, setStudyState] = useState(study)
   const [dateFromState, setDateFromState] = useState(dateFrom)
   const [dateToState, setDateToState] = useState(dateTo)
   
   const [isDisabled, setIsDisabled] = useState(false)
+
+  function handleCancel() {
+    setSchoolState(school)
+    setStudyState(study)
+    setDateFromState(dateFrom)
+    setDateToState(dateTo)
+    setIsDisabled(true)
+  }
 
   function handleSubmit(e, item) {
     e.preventDefault();
@@ -26,6 +34,7 @@ function Education({id, school, study, dateFrom, dateTo, updateEducationItem, de
         <div className='buttons'>
           <button onClick={()=>deleteEducationItem(id)}>Delete</button>
           <button onClick={()=>setIsDisabled(false)}>Edit</button>
+          <button onClick={()=>handleCancel()}>Cancel</button>
           <button onClick={(e)=>handleSubmit(e, {id, school: schoolState, study: studyState, dateFrom: dateFromState, dateTo: dateToState})}>Submit</button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Practical({id, company, position, responsibilities, dateFrom, dateTo, updatePracticalItem, deletePracticalItem}) {
+function Practical({id, company='', position='', responsibilities='', dateFrom='', dateTo='', updatePracticalItem, deletePracticalItem}) {
   const [companyState, setCompanyState] = useState(company)
   const [positionState, setPositionState] = useState(position)
   const [responsibilitiesState, setResponsibilitiesState] = useState(responsibilities)
@@ -8,6 +8,15 @@ function Practical({id, company, position, responsibilities, dateFrom, dateTo, u
   const [dateToState, setDateToState] = useState(dateTo)
   
   const [isDisabled, setIsDisabled] = useState(false)
+
+  function handleCancel() {
+    setCompanyState(company)
+    setPositionState(position)
+    setResponsibilitiesState(responsibilities)
+    setDateFromState(dateFrom)
+    setDateToState(dateTo)
+    setIsDisabled(true)
+  }
 
   function handleSubmit(e, item) {
     e.preventDefault();
@@ -28,6 +37,7 @@ function Practical({id, company, position, responsibilities, dateFrom, dateTo, u
         <div className='buttons'>
           <button onClick={()=>deletePracticalItem(id)}>Delete</button>
           <button onClick={()=>setIsDisabled(false)}>Edit</button>
+          <button onClick={()=>handleCancel()}>Cancel</button>
           <button onClick={(e)=>handleSubmit(e, {id, company: companyState, position: positionState, responsibilities: responsibilitiesState, dateFrom: dateFromState, dateTo: dateToState})}>Submit</button>
         </div>
       </div>
