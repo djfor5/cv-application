@@ -72,7 +72,7 @@ function App() {
             <Education key={el.id} {...el} updateEducationItem={updateEducationItem} deleteEducationItem={deleteEducationItem}/>
           )
         })}
-        <button onClick={()=>addNewEducation()}>Add New</button>
+        <button className='new' onClick={()=>addNewEducation()}>Add New</button>
       </section>
       <section className='practical'>
         <h2>Practical Experience</h2>
@@ -81,7 +81,7 @@ function App() {
             <Practical key={el.id} {...el} updatePracticalItem={updatePracticalItem} deletePracticalItem={deletePracticalItem}/>
           )
         })}
-        <button onClick={()=>addNewPractical()}>Add New</button>
+        <button className='new' onClick={()=>addNewPractical()}>Add New</button>
       </section>
     </>
   )
